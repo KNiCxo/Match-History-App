@@ -1,0 +1,14 @@
+/* Oswald Regular font */
+@font-face {
+  src: url(/fonts/BeaufortForLoL-OTF/BeaufortforLOL-Bold.otf);
+  font-family: beaufort-otf;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('background.webp');
+  background-size: 150%;
+  background-repeat: no-repeat;
+  font-family: beaufort-otf;
+}
