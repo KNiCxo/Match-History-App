@@ -1,15 +1,26 @@
+import React, {useState} from 'react';
+
 import './home-page.css'
 
 // App home page where users can enter their "Riot ID" and get their match history
 function HomePage() {
+  // Stores region to use for searching
+  let getRegion = localStorage.getItem('region');
+  if (!getRegion) {
+    getRegion = 'NA';
+  }
+  const [region, setRegion] = useState(JSON.parse(getRegion));
+  
   // When called, displays the list of regions to change to
   function showRegionMenu() {
     document.querySelector('.region-options').style.display = 'block';
   }
 
   // When called, sets the region based on what the user picked
-  function changeRegion(region) {
-    console.log(region);
+  function changeRegion(regionChange) {
+    setRegion(regionChange);
+    localStorage.setItem('region', JSON.stringify(regionChange))
+
   }
 
   // If body is clicked and the region elements weren't the target, hide the region options
@@ -43,7 +54,7 @@ function HomePage() {
               {/* Current region selected */}
               <div className='region-text'>
                 <span className='region-label'>Region</span>
-                <span className='region-name'>NA</span>
+                <span className='region-name'>{region}</span>
               </div>
 
               {/* List of regions to change to */}
@@ -51,19 +62,19 @@ function HomePage() {
               <div className='region-options'>
                 <ul>
                   <li onClick={() => changeRegion('NA')}>NA</li>
-                  <li>EUW</li>
-                  <li>EUNE</li>
-                  <li>OCE</li>
-                  <li>KR</li>
-                  <li>BR</li>
-                  <li>LAS</li>
-                  <li>LAN</li>
-                  <li>RU</li>
-                  <li>SG</li>
-                  <li>PH</li>
-                  <li>TW</li>
-                  <li>VN</li>
-                  <li>TH</li>
+                  <li onClick={() => changeRegion('EUW')}>EUW</li>
+                  <li onClick={() => changeRegion('EUNE')}>EUNE</li>
+                  <li onClick={() => changeRegion('OCE')}>OCE</li>
+                  <li onClick={() => changeRegion('KR')}>KR</li>
+                  <li onClick={() => changeRegion('BR')}>BR</li>
+                  <li onClick={() => changeRegion('LAS')}>LAS</li>
+                  <li onClick={() => changeRegion('LAN')}>LAN</li>
+                  <li onClick={() => changeRegion('RU')}>RU</li>
+                  <li onClick={() => changeRegion('SG')}>SG</li>
+                  <li onClick={() => changeRegion('PH')}>PH</li>
+                  <li onClick={() => changeRegion('TW')}>TW</li>
+                  <li onClick={() => changeRegion('VN')}>VN</li>
+                  <li onClick={() => changeRegion('TH')}>TH</li>
                 </ul>
               </div>
             </div>
