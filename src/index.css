@@ -1,14 +1,22 @@
 /* Oswald Regular font */
 @font-face {
-  src: url(/fonts/BeaufortForLoL-OTF/BeaufortforLOL-Bold.otf);
-  font-family: beaufort-otf;
+  src: url(fonts/BeaufortForLoL-OTF/BeaufortforLOL-MediumItalic.otf);
+  font-family: beaufort
+}
+
+@font-face {
+  src: url(fonts/Spiegel-OTF/Spiegel-BoldItalic.otf);
+  font-family: spiegel;
 }
 
 body {
   margin: 0;
   padding: 0;
+  height: 92vh;
   background-image: url('background.webp');
-  background-size: 150%;
+  background-size: 570%;
+  background-position-x: -200px;
   background-repeat: no-repeat;
-  font-family: beaufort-otf;
+  background-attachment: fixed;
+  font-family: beaufort;
 }

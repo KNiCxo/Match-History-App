@@ -1,0 +1,134 @@
+.container {
+  margin-top: 60px;
+}
+
+.header-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 85%;
+  margin: 0 auto 20px;
+  text-align: center;
+}
+
+.header-div img {
+  width: 90px;
+  height: 90px;
+  margin-bottom: 30px;
+}
+
+.header-div h1 {
+  margin: 0;
+  color: rgb(198, 200, 60);
+  text-shadow: 3px 3px 2px black;
+  font-size: 50px;
+}
+
+.header-div h2 {
+  margin: 10px 0 30px;
+  color: rgb(108, 104, 104);
+  font-size: 17px;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: spiegel;
+}
+
+.top-search {
+  display: flex;
+  flex-direction: row;
+}
+
+.select-region {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(7, 109, 198);
+  border-top-left-radius: 12px;
+  width: 100px;
+  height: 50px;
+  line-height: 16px;
+  color: white;
+  font-size: 30px;
+}
+
+.select-region:hover {
+  cursor: pointer;
+}
+
+.region-text {
+  display: flex;
+  flex-direction: column;
+  padding-top: 7px;
+  padding-left: 10px;
+}
+
+.region-label {
+  color: rgb(198, 200, 60);
+  font-size: 15px;
+  margin-bottom: 3px;
+}
+
+.region-name {
+  font-size: 20px;
+}
+
+.region-options {
+  z-index: 100;
+  display: none;
+}
+
+.region-options ul {
+  overflow: auto;
+  white-space: nowrap;
+  margin-top: 8px;
+  padding: 0;
+  width: 100px;
+  height: 137px;
+  border-top: 2px solid rgb(7, 104, 189);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  background-color: rgb(7, 109, 198);
+  list-style-type: none;
+  color: white;
+}
+
+.select-region ul li {
+  padding: 15px;
+  font-size: 20px;
+}
+
+.select-region ul li:hover {
+  background-color: rgb(8, 88, 157);
+}
+
+.user-input {
+  background-color: rgb(255, 255, 255);
+  border: none;
+  border-top-right-radius: 12px;
+  outline: none;
+  height: 48px;
+  padding-left: 10px;
+  font-family: spiegel;
+  font-size: 16px;
+}
+
+.search-button {
+  background-color: rgb(229, 18, 18);
+  border: none;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  outline: none;
+  width: 316px;
+  height: 30px;
+  color: white;
+  font-family: spiegel;
+  font-size: 18px;
+}
+
+.search-button:hover {
+  cursor: pointer;
+  background-color: red;
+}
