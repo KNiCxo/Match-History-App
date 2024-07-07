@@ -1,0 +1,30 @@
+/* Oswald Regular font */
+:root {
+  /* Used for div container components */
+  --box: rgba(123, 176, 226, 0.704);
+
+  /* Used for the lines that divide the div containers */
+  --boxBorder: rgba(163, 208, 218, 0.821);
+}
+
+@font-face {
+  src: url(/public/fonts/BeaufortForLoL-OTF/BeaufortforLOL-MediumItalic.otf);
+  font-family: beaufort
+}
+
+@font-face {
+  src: url(/public/fonts/Spiegel-OTF/Spiegel-BoldItalic.otf);
+  font-family: spiegel;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 92vh;
+  background-image: url('/public/background.webp');
+  background-size: 570%;
+  background-position-x: -200px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: beaufort;
+}
