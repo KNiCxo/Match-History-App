@@ -13,14 +13,15 @@ function ProfilePage() {
     for (let i = 0; i <= account.length; i++) {
       if (account.charAt(i) == '#') {
         let gameName = account.slice(0, i);
-        console.log(gameName);
+        //console.log(gameName);
       }
     }
   }
   
   const fetchData = async () => {
-    const puuid = await fetch('https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/blonded/kujo?api_key=RGAPI-b2a9aef0-4bf2-4291-9072-1d455ab062d6');
+    const puuid = await fetch('http://localhost:4000/profile');
     const puuidJSON = await puuid.json();
+    console.log(puuidJSON);
   };
 
   // Fetches and organizes necessary data on app mount
