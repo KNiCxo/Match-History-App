@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import './home-page.css'
 
 // App home page where users can enter their "Riot ID" and get their match history
 function HomePage() {
-  // Get region and regionID from local storage
+  // Get region, regionID, and regionTag from local storage
   let getRegion = JSON.parse(localStorage.getItem('region'));
   if (!getRegion) {
     getRegion = 'NA';
@@ -16,49 +16,105 @@ function HomePage() {
     getRegionID = 'na1';
   }
 
+  let getRegionTag = JSON.parse(localStorage.getItem('regionTag'));
+  if (!getRegionTag) {
+    getRegionTag = '#NA1'
+  }
+
   // Stores region to use for searching
   const [region, setRegion] = useState(getRegion);
 
   // Stores regionID for profile page query param
   const [regionID, setRegionID] = useState(getRegionID);
 
+  // Stores region tag for search bar placeholder
+  const [regionTag, setRegionTag] = useState(getRegionTag);
+
   // Enable navigate hook
   const navigate = useNavigate();
-  
+
   // When called, displays the list of regions to change to
   function showRegionMenu() {
     document.querySelector('.region-options').style.display = 'block';
   }
 
-  // When called, sets the region and regionID based on what the user picked
-  function changeRegion(regionChange, regionIDChange) {
+  // Hides region options when called
+  function hideRegionMenu(e) {
+    // If element clicked is not related to the region elements, hide region options
+    if (e.target.className != 'region-name' &&
+          e.target.className != 'region-label' &&
+          e.target.className != 'region-text') {
+        document.querySelector('.region-options').style.display = 'none';
+      }
+  }
+
+  // When called, sets the region, regionID, and regionTag based on what the user picked
+  function changeRegion(regionChange, regionIDChange, regionTagChange) {
     setRegion(regionChange);
     localStorage.setItem('region', JSON.stringify(regionChange));
 
     setRegionID(regionIDChange);
     localStorage.setItem('regionID', JSON.stringify(regionIDChange));
+
+    setRegionTag(regionTagChange);
+    localStorage.setItem('regionTag', JSON.stringify(regionTagChange));
   }
 
-  // When called, navigates to the profile the user entered in the search bar
-  function navProfile() {
-    // Only navigates if user input isn't empty
+  // Parses input and sets gameName and tagLine
+  function parseUsername(username) {
+    // Loops until it finds a # char
+    for (let i = 0; i < username.length; i++) {
+      // If '#' char is found, set gameName to chars before the '#' and tagLine for chars after
+      if (username.charAt(i) === '#') {
+        return {
+          gameName: username.slice(0, i),
+          tagLine: username.slice(i + 1, username.length)
+        }
+      }
+    }
+    
+    // If '#' is not found, set gameName and tagLine as empty strings
+    return {
+      gameName: '',
+      tagLine: ''
+    }
+  }
+
+  // When called, navigates to the profile page or error page depending on if the user input was valid
+  const navProfile = async () => {
+    // Only attempts to navigate if user input isn't empty
     if (document.querySelector('.user-input').value != '') {
-      // Encodes username so it can be the correct query param
-      const username = encodeURIComponent(document.querySelector('.user-input').value);
+      // Get username from input field
+      const username = document.querySelector('.user-input').value;
 
-      // Navigate to profile
-      navigate(`profile/${regionID}/${username}`);
-    }
-  }
+      // Parse username and set gameName and tagLine 
+      let {gameName, tagLine} = parseUsername(username);
 
-  // If body is clicked and the region elements weren't the target, hide the region options
-  document.body.addEventListener('click', (e) => {
-    if (e.target.className != 'region-name' &&
-        e.target.className != 'region-label' &&
-        e.target.className != 'region-text') {
-      document.querySelector('.region-options').style.display = 'none';
+      // Make call to proxyServer and get status code to check if profile exists
+      const checkUsername = await 
+      fetch(encodeURI(`http://localhost:4000/check/${regionID}/${gameName}-${encodeURIComponent(tagLine)}`));
+      const statusCode =  await checkUsername.status;
+
+      // If request was a success, navigate to profile page with proper params
+      // Else navigate to error page
+      if (statusCode == 200) {
+        navigate(encodeURI(`/profile/${regionID}/${gameName}-${tagLine}`));
+      } else {
+        navigate('/error');
+      }
     }
-  });
+  };
+
+  // Adds event listener on component mount
+  useEffect(() => {
+    // If body is clicked and the region elements weren't the target, hide the region options
+    document.body.addEventListener('click', hideRegionMenu);
+
+    // Removes event listener when navigating to profile page
+    return () => {
+      document.body.removeEventListener('click', hideRegionMenu);
+    }
+  }, []);
 
   return(
     <>
@@ -89,26 +145,28 @@ function HomePage() {
               {/* Clicking on an option changes the current region to that region */}
               <div className='region-options'>
                 <ul>
-                  <li onClick={() => changeRegion('NA', 'na1')}>NA</li>
-                  <li onClick={() => changeRegion('EUW', 'euw1')}>EUW</li>
-                  <li onClick={() => changeRegion('EUNE', 'eune1')}>EUNE</li>
-                  <li onClick={() => changeRegion('OCE', 'oc1')}>OCE</li>
-                  <li onClick={() => changeRegion('KR', 'kr')}>KR</li>
-                  <li onClick={() => changeRegion('BR', 'br1')}>BR</li>
-                  <li onClick={() => changeRegion('LAS', 'la1')}>LAS</li>
-                  <li onClick={() => changeRegion('LAN', 'la2')}>LAN</li>
-                  <li onClick={() => changeRegion('RU', 'ru')}>RU</li>
-                  <li onClick={() => changeRegion('SG', 'sg2')}>SG</li>
-                  <li onClick={() => changeRegion('PH', 'ph2')}>PH</li>
-                  <li onClick={() => changeRegion('TW', 'tw2')}>TW</li>
-                  <li onClick={() => changeRegion('VN', 'vn2')}>VN</li>
-                  <li onClick={() => changeRegion('TH', 'th2')}>TH</li>
+                  <li onClick={() => changeRegion('NA', 'na1', '#NA1')}>NA</li>
+                  <li onClick={() => changeRegion('EUW', 'euw1', '#EUW')}>EUW</li>
+                  <li onClick={() => changeRegion('EUNE', 'eun1', '#EUNE')}>EUNE</li>
+                  <li onClick={() => changeRegion('OCE', 'oc1', '#OCE')}>OCE</li>
+                  <li onClick={() => changeRegion('KR', 'kr', '#KR1')}>KR</li>
+                  <li onClick={() => changeRegion('JP', 'jp1', '#JP1')}>JP</li>
+                  <li onClick={() => changeRegion('BR', 'br1', '#BR1')}>BR</li>
+                  <li onClick={() => changeRegion('LAS', 'la1', '#LAS')}>LAS</li>
+                  <li onClick={() => changeRegion('LAN', 'la2', '#LAN')}>LAN</li>
+                  <li onClick={() => changeRegion('RU', 'ru', '#RU1')}>RU</li>
+                  <li onClick={() => changeRegion('TR', 'tr1', '#TR1')}>TR</li>
+                  <li onClick={() => changeRegion('SG', 'sg2', '#SG2')}>SG</li>
+                  <li onClick={() => changeRegion('PH', 'ph2', '#PH2')}>PH</li>
+                  <li onClick={() => changeRegion('TW', 'tw2', '#TW2')}>TW</li>
+                  <li onClick={() => changeRegion('VN', 'vn2', '#VN2')}>VN</li>
+                  <li onClick={() => changeRegion('TH', 'th2', '#TH2')}>TH</li>
                 </ul>
               </div>
             </div>
 
             {/* User input */}
-            <input className='user-input' type="text" placeholder="Enter RIOT ID"/>
+            <input className='user-input' type="text" placeholder={`Game name + ${regionTag.toUpperCase()}`}/>
           </div>
           
           {/* Search button */}
