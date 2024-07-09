@@ -48,8 +48,13 @@ app.get('/check/:regionID/:gameName-:tagLine', async (req, res) => {
   // Else, respond with 404
   if (puuidStatusCode == 200) {
     const summonerStatusCode = await getSummoner(req.params.regionID, puuid);
-    res.status(200).end();
-    console.log(summonerStatusCode);
+    
+    // If Summoner request was a success, send 200 status code, else send 404
+    if (summonerStatusCode == 200) {
+      res.status(200).end();
+    } else {
+      res.status(404).end();
+    }
   } else {
     res.status(404).end();
   }
