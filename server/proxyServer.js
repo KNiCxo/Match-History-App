@@ -53,10 +53,10 @@ app.get('/check/:regionID/:gameName-:tagLine', async (req, res) => {
     if (summonerStatusCode == 200) {
       res.status(200).end();
     } else {
-      res.status(404).end();
+      res.status(408).end();
     }
   } else {
-    res.status(404).end();
+    res.status(408).end();
   }
 });
 

@@ -17,16 +17,13 @@
   margin-bottom: 30px;
 }
 
-.header-div h1 {
+.title {
   margin: 0;
-  color: rgb(198, 200, 60);
-  text-shadow: 3px 3px 2px black;
   font-size: 50px;
 }
 
-.header-div h2 {
+.description {
   margin: 10px 0 30px;
-  color: rgb(108, 104, 104);
   font-size: 17px;
 }
 

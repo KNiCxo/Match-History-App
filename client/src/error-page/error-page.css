@@ -1,0 +1,30 @@
+/* Prevents page from scrolling 
+body {
+  padding: 0.01px;
+}*/
+
+.error-img-div {
+  text-align: center;
+}
+
+.error-img {
+  margin-top: 90px;
+  margin-bottom: 15px;
+  width: 125px;
+  height: 125px;
+}
+
+.error-title, .error-cta {
+  width: 90%;
+  text-align: center;
+}
+
+.error-title {
+  margin: 0px auto 10px 15px;
+  font-size: 40px;
+}
+
+.error-cta {
+  margin: 0 auto 35px;
+  font-size: 17px;
+} 
