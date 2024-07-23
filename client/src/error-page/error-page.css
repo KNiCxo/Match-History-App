@@ -1,12 +1,9 @@
-/* Prevents page from scrolling 
-body {
-  padding: 0.01px;
-}*/
-
+/* Centers error img */
 .error-img-div {
   text-align: center;
 }
 
+/* Styling for error img */
 .error-img {
   margin-top: 90px;
   margin-bottom: 15px;
@@ -14,16 +11,19 @@ body {
   height: 125px;
 }
 
+/* Centers header tags */
 .error-title, .error-cta {
   width: 90%;
   text-align: center;
 }
 
+/* Styling for h1 tag */
 .error-title {
   margin: 0px auto 10px 15px;
   font-size: 40px;
 }
 
+/* Styling for h2 tag */
 .error-cta {
   margin: 0 auto 35px;
   font-size: 17px;

@@ -95,6 +95,7 @@ function SearchBar() {
       // If request was a success, navigate to profile page with proper params
       // Else navigate to error page
       if (statusCode == 200) {
+        document.querySelector('.user-input').value = '';
         navigate(encodeURI(`/profile/${regionID}/${gameName}-${tagLine}`));
       } else {
         navigate('/error');

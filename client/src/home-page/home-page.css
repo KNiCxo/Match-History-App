@@ -1,7 +1,9 @@
+/* Adds margin to top of content */
 .container {
   margin-top: 60px;
 }
 
+/* Styling for div that contains headers */
 .header-div {
   display: flex;
   flex-direction: column;
@@ -11,22 +13,26 @@
   text-align: center;
 }
 
+/* Styling for logo */
 .header-div img {
   width: 90px;
   height: 90px;
   margin-bottom: 30px;
 }
 
+/* Styling for h1 tag */
 .title {
   margin: 0;
   font-size: 50px;
 }
 
+/* Styling for h2 tag */
 .description {
   margin: 10px 0 30px;
   font-size: 17px;
 }
 
+/* Styling for search bar container */
 .search-bar {
   display: flex;
   flex-direction: column;
@@ -34,11 +40,13 @@
   font-family: spiegel;
 }
 
+/* Styling for the top half of the search bar container */
 .top-search {
   display: flex;
   flex-direction: row;
 }
 
+/* Styling for region select menu */
 .select-region {
   display: flex;
   flex-direction: column;
@@ -55,6 +63,7 @@
   cursor: pointer;
 }
 
+/* Styling for region select menu texts */
 .region-text {
   display: flex;
   flex-direction: column;
@@ -72,11 +81,13 @@
   font-size: 20px;
 }
 
+/* Styling for region select drop down menu */
 .region-options {
   z-index: 100;
   display: none;
 }
 
+/* Styling for drop down menu list */
 .region-options ul {
   overflow: auto;
   white-space: nowrap;
@@ -92,7 +103,8 @@
   color: white;
 }
 
-.select-region ul li {
+/* Styling for drop down menu list items */
+.region-select ul li {
   padding: 15px;
   font-size: 20px;
 }
@@ -101,6 +113,7 @@
   background-color: rgb(8, 88, 157);
 }
 
+/* Styling for search bar input field */
 .user-input {
   background-color: rgb(255, 255, 255);
   border: none;
@@ -112,6 +125,7 @@
   font-size: 16px;
 }
 
+/* Styling for seach-button */
 .search-button {
   background-color: rgb(229, 18, 18);
   border: none;

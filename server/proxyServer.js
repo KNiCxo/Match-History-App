@@ -65,4 +65,5 @@ app.get('/profile/:region/:gameName-:tagLine', async (req, res) => {
   res.status(200).end();
 });
 
+// Starts server
 app.listen(4000, () => console.log('listening on port 4000'));
