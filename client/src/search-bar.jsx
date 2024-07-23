@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
+import './search-bar.css';
+
 function SearchBar() {
   // Get region, regionID, and regionTag from local storage
   let getRegion = JSON.parse(localStorage.getItem('region'));
