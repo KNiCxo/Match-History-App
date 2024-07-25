@@ -88,17 +88,18 @@ function SearchBar() {
 
       // Parse username and set gameName and tagLine 
       let {gameName, tagLine} = parseUsername(username);
-
+      console.log(gameName, tagLine);
+      console.log(regionID);
       // Make call to proxyServer and get status code to check if profile exists
       const checkUsername = await 
-      fetch(encodeURI(`http://localhost:4000/check/${regionID}/${gameName}-${encodeURIComponent(tagLine)}`));
+      fetch(encodeURI(`http://localhost:4000/check/${regionID}/${gameName}/${encodeURIComponent(tagLine)}`));
       const statusCode =  await checkUsername.status;
 
       // If request was a success, navigate to profile page with proper params
       // Else navigate to error page
       if (statusCode == 200) {
         document.querySelector('.user-input').value = '';
-        navigate(encodeURI(`/profile/${regionID}/${gameName}-${tagLine}`));
+        navigate(encodeURI(`/profile/${regionID}/${gameName}/${encodeURIComponent(tagLine)}`));
       } else {
         navigate('/error');
       }

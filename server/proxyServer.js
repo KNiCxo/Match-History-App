@@ -12,8 +12,8 @@ const getPUUID = async (gameName, tagLine) => {
   const puuidResponse = await fetch(`https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${process.env.KEY}`);
 
   // Store status code and JSON responses
-  const puuidStatusCode = await puuidResponse.status;
   const puuidJSON = await puuidResponse.json();
+  const puuidStatusCode = await puuidResponse.status;
 
   // If status code is 200, return the given PUUID and status code
   // Else, only return status code
@@ -35,19 +35,23 @@ const getSummoner = async (regionID, puuid) => {
   const summonerResponse = await fetch(`https://${regionID}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${process.env.KEY}`);
 
   // Store status code and JSON responses
+  const summonerJSON = await summonerResponse.json();
   const summonerStatusCode = await summonerResponse.status;
-  return summonerStatusCode;
+  return {
+    summoner: summonerJSON,
+    summonerStatusCode: summonerStatusCode
+  }
 }
 
 // Checks if Riot ID and League account exists
-app.get('/check/:regionID/:gameName-:tagLine', async (req, res) => {
+app.get('/check/:regionID/:gameName/:tagLine', async (req, res) => {
   // Get puuid and it's response status code
   const {puuid, puuidStatusCode} = await getPUUID(req.params.gameName, req.params.tagLine);
 
   // If PUUID request was a success, get status code from Summoner endpoint
   // Else, respond with 404
   if (puuidStatusCode == 200) {
-    const summonerStatusCode = await getSummoner(req.params.regionID, puuid);
+    const {summoner, summonerStatusCode} = await getSummoner(req.params.regionID, puuid);
     
     // If Summoner request was a success, send 200 status code, else send 404
     if (summonerStatusCode == 200) {
@@ -60,9 +64,11 @@ app.get('/check/:regionID/:gameName-:tagLine', async (req, res) => {
   }
 });
 
-// Sends success when navigating to valid profile page
-app.get('/profile/:region/:gameName-:tagLine', async (req, res) => {
-  res.status(200).end();
+// Sends Summoner name, Level, and Profile Icon
+app.get('/profile/:regionID/:gameName/:tagLine', async (req, res) => {
+  const {puuid, puuidStatusCode} = await getPUUID(req.params.gameName, req.params.tagLine);
+  const {summoner, summonerStatusCode} = await getSummoner(req.params.regionID, puuid);
+  res.json(summoner);
 });
 
 // Starts server

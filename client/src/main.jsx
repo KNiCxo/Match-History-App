@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
+import './index.css';
+
+// Import pages
 import HomePage from './home-page/home-page.jsx';
 import ProfilePage from './profile-page/profile-page.jsx';
 import ErrorPage from './error-page/error-page.jsx';
-
-import './index.css';
 
 const router = createBrowserRouter([
   {
@@ -15,10 +16,12 @@ const router = createBrowserRouter([
     element: <HomePage></HomePage>
   },
   {
-    path: '/profile/:region/:account',
+    // Profile page
+    path: '/profile/:regionID/:gameName/:tagLine',
     element: <ProfilePage></ProfilePage>
   },
   {
+    // Error Page
     path: '/error',
     element: <ErrorPage></ErrorPage>
   }

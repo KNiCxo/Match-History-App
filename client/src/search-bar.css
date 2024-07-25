@@ -18,7 +18,7 @@
   flex-direction: column;
   background-color: rgb(7, 109, 198);
   border-top-left-radius: 12px;
-  width: 100px;
+  width: 80px;
   height: 50px;
   line-height: 16px;
   color: white;
@@ -59,7 +59,7 @@
   white-space: nowrap;
   margin-top: 8px;
   padding: 0;
-  width: 100px;
+  width: 80px;
   height: 137px;
   border-top: 2px solid rgb(7, 104, 189);
   border-bottom-left-radius: 12px;
@@ -70,7 +70,7 @@
 }
 
 /* Styling for drop down menu list items */
-.region-select ul li {
+.region-options ul li {
   padding: 15px;
   font-size: 20px;
 }
@@ -85,8 +85,9 @@
   border: none;
   border-top-right-radius: 12px;
   outline: none;
+  width: 219px;
   height: 48px;
-  padding-left: 10px;
+  padding-left: 15px;
   font-family: spiegel;
   font-size: 16px;
 }

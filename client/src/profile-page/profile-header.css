@@ -1,0 +1,56 @@
+/* Removes space between profile img and profile name */
+.img-div {
+  margin-bottom: -15px;
+}
+
+/* Styling for profile img */
+.profile-img {
+  margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+}
+
+/* Styling for profile level div box */
+.profile-level-div {
+  width: 30px;
+  height: 20px;
+  z-index: 100;
+  margin: 0 auto;
+  padding: 2px 8px 2px;
+  background-color: rgb(93, 92, 92);
+  position: relative;
+  top: -25px;
+  border-radius: 20px;
+}
+
+/* Styling for profile level text */
+.profile-level {
+  font-family: spiegel;
+  color: white;
+}
+
+/* Styling for profile name div box */
+.profile-name {
+  margin: 0 auto;
+  background-color: rgba(87, 87, 87, 0.422);
+  width: fit-content;
+  height: 40px;
+  border-radius: 10px;
+  padding: 5px 10px 0;
+}
+
+/* Styling for game name and tag line */
+.profile-game-name, .profile-tag-line {
+  font-family: spiegel;
+  font-size: 30px;
+}
+
+.profile-game-name {
+  color: white;
+  margin-right: 5px;
+}
+
+.profile-tag-line {
+  color: rgb(43, 43, 43);
+}
