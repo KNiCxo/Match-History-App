@@ -3,6 +3,9 @@ import {useParams} from 'react-router-dom';
 
 import './profile-page.css';
 
+// Import JSON data
+import gameModes from '../lib/game-modes.json';
+
 // Import search bar and match history components
 import SearchBar from '../search-bar.jsx';
 import ProfileHeader from './profile-header.jsx';
