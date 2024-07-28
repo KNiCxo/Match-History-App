@@ -21,3 +21,41 @@ const runes = {
   8230: "Phase Rush"
 }
 
+// 16 player arena is 1710
+const gameModes = {
+  400: "Normal Draft",
+  420: "Ranked Solo",
+  430: "Normal Blind",
+  440: "Ranked Flex",
+  450: "ARAM",
+  490: "Quickplay",
+  700: "Clash",
+  830: "Intro Bot",
+  840: "Beginner Bot",
+  850: "Intermediate Bot",
+  2000: "Tutorial 1",
+  2010: "Tutorial 2",
+  2020: "Tutorial 3",
+}
+
+const summonerSpells = {
+  21: "Barrier",
+  1: "Cleanse",
+  2202: "Flash",
+  2201: "Flee",
+  14: "Ignite",
+  3: "Exhaust",
+  4: "Flash",
+  6: "Ghost",
+  7: "Heal",
+  13: "Clarity",
+  30: "To the King!",
+  31: "Poro Toss",
+  11: "Smite",
+  39: "Mark",
+  32: "Mark",
+  12: "Teleport",
+  54: "Placeholder",
+  55: "Placeholder and Attack-Smite"
+}
+

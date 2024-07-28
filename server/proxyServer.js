@@ -65,10 +65,26 @@ app.get('/check/:regionID/:gameName/:tagLine', async (req, res) => {
 });
 
 // Sends Summoner name, Level, and Profile Icon
-app.get('/profile/:regionID/:gameName/:tagLine', async (req, res) => {
+app.get('/summoner/:regionID/:gameName/:tagLine', async (req, res) => {
   const {puuid, puuidStatusCode} = await getPUUID(req.params.gameName, req.params.tagLine);
   const {summoner, summonerStatusCode} = await getSummoner(req.params.regionID, puuid);
   res.json(summoner);
+});
+
+// Sends list of 20 MatchIDs based that varies based on start param
+app.get('/matchID/:playerPUUID/:start', async (req, res) => {
+  const matchIDCall = await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${req.params.playerPUUID}/ids?start=${req.params.start}&count=20&api_key=${process.env.KEY}`);
+
+  const matchIDJSON = await matchIDCall.json();
+  res.json(matchIDJSON);
+});
+
+// Sends individual match data based on Match ID
+app.get('/match/:matchID', async (req, res) => {
+  const matchCall = await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/${req.params.matchID}?api_key=${process.env.KEY}`);
+
+  const matchJSON = await matchCall.json();
+  res.json(matchJSON);
 });
 
 // Starts server

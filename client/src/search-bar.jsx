@@ -88,8 +88,7 @@ function SearchBar() {
 
       // Parse username and set gameName and tagLine 
       let {gameName, tagLine} = parseUsername(username);
-      console.log(gameName, tagLine);
-      console.log(regionID);
+ 
       // Make call to proxyServer and get status code to check if profile exists
       const checkUsername = await 
       fetch(encodeURI(`http://localhost:4000/check/${regionID}/${gameName}/${encodeURIComponent(tagLine)}`));
