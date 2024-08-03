@@ -72,7 +72,26 @@ function ProfilePage() {
       const matchCallJSON = await matchCall.json();
 
       // Filters out 16-player Arena gamemode
-      if (matchCallJSON.info.queueId == 1710) {
+      if (matchCallJSON.info.queueId == 1700) {
+        // Create object for match that contains all necessary data
+        // Gather game mode, game creation, and game duration data initially
+        let matchDataObj = {
+          gameMode: gameModes[`${matchCallJSON.info.queueId}`],
+          gameCreation: matchCallJSON.info.gameCreation,
+          gameDuration: matchCallJSON.info.gameDuration,
+          victory: matchCallJSON.info.participants[i].win
+        }
+
+        // Loop through match participants until player is found
+        for (let i = 0; i < matchCallJSON.info.participants.length; i++) {
+          if (matchCallJSON.info.participants[i].puuid == playerPUUID) {
+            // Gather game outcome from player data
+            matchDataObj = {...matchDataObj, victory: matchCallJSON.info.participants[i].win};
+          }
+        }
+
+        // Push match data object into temp array
+        matchDataTempList.push(matchDataObj);
       } else {
         // Tracks which team the player is on (Blue: 100, Red: 200)
         let playerTeamID;
@@ -86,7 +105,7 @@ function ProfilePage() {
         let matchDataObj = {
           gameMode: gameModes[`${matchCallJSON.info.queueId}`],
           gameCreation: matchCallJSON.info.gameCreation,
-          gameDuration: matchCallJSON.info.gameDuration
+          gameDuration: matchCallJSON.info.gameDuration,
         };
 
         // Loop through match participants until player is found
@@ -106,15 +125,15 @@ function ProfilePage() {
             playerTeamID = matchCallJSON.info.participants[i].teamId
 
             if (playerTeamID == 100) {
-              matchDataObj = {...matchDataObj, "teamColor": "Blue"};
-              matchDataObj = {...matchDataObj, "enemyColor": "Red"};
+              matchDataObj = {...matchDataObj, teamColor: "Blue"};
+              matchDataObj = {...matchDataObj, enemyColor: "Red"};
             } else {
-              matchDataObj = {...matchDataObj, "teamColor": "Red"};
-              matchDataObj = {...matchDataObj, "enemyColor": "Blue"};
+              matchDataObj = {...matchDataObj, teamColor: "Red"};
+              matchDataObj = {...matchDataObj, enemyColor: "Blue"};
             }
 
             // Gather game outcome from player data
-            matchDataObj = {...matchDataObj, "Victory": matchCallJSON.info.participants[i].win};
+            matchDataObj = {...matchDataObj, victory: matchCallJSON.info.participants[i].win};
           }
         }
 
@@ -191,7 +210,7 @@ function ProfilePage() {
         }
         
         // Add player team and enemy team data into match data
-        matchDataObj = {...matchDataObj, "playerTeamData": playerTeam, "enemyTeamData": enemyTeam};
+        matchDataObj = {...matchDataObj, playerTeamData: playerTeam, enemyTeamData: enemyTeam};
 
         // Push match data object into temp array
         matchDataTempList.push(matchDataObj);
@@ -201,7 +220,7 @@ function ProfilePage() {
     // Update state of match data array with temp array
     setMatchDataList(matchDataTempList);
     console.log(matchDataTempList);
-    console.log(matchDataTempList[2].enemyTeamData[3]);
+    //console.log(matchDataTempList[2].enemyTeamData[3]);
   }
 
   // If iconNum was set, display Profile Header
