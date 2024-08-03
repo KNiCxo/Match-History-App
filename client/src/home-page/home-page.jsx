@@ -19,6 +19,7 @@ function HomePage() {
           <h2 className='description'>View Detailed League of Legends Match History Stats</h2>
         </div>
 
+        {/* Search bar component */}
         <SearchBar></SearchBar>
       </div>
     </>

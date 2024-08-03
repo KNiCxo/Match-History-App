@@ -19,7 +19,7 @@ const getPUUID = async (gameName, tagLine) => {
   // Else, only return status code
   if (puuidStatusCode == 200) {
     return {
-      puuid: puuidJSON.puuid,
+      puuidJSON: puuidJSON,
       puuidStatusCode: puuidStatusCode
     };
   } else {
@@ -46,16 +46,16 @@ const getSummoner = async (regionID, puuid) => {
 // Checks if Riot ID and League account exists
 app.get('/check/:regionID/:gameName/:tagLine', async (req, res) => {
   // Get puuid and it's response status code
-  const {puuid, puuidStatusCode} = await getPUUID(req.params.gameName, req.params.tagLine);
+  const {puuidJSON, puuidStatusCode} = await getPUUID(req.params.gameName, req.params.tagLine);
 
   // If PUUID request was a success, get status code from Summoner endpoint
   // Else, respond with 404
   if (puuidStatusCode == 200) {
-    const {summoner, summonerStatusCode} = await getSummoner(req.params.regionID, puuid);
+    const {summoner, summonerStatusCode} = await getSummoner(req.params.regionID, puuidJSON.puuid);
     
     // If Summoner request was a success, send 200 status code, else send 404
     if (summonerStatusCode == 200) {
-      res.status(200).end();
+      res.json(puuidJSON);
     } else {
       res.status(408).end();
     }
@@ -66,14 +66,14 @@ app.get('/check/:regionID/:gameName/:tagLine', async (req, res) => {
 
 // Sends Summoner name, Level, and Profile Icon
 app.get('/summoner/:regionID/:gameName/:tagLine', async (req, res) => {
-  const {puuid, puuidStatusCode} = await getPUUID(req.params.gameName, req.params.tagLine);
-  const {summoner, summonerStatusCode} = await getSummoner(req.params.regionID, puuid);
+  const {puuidJSON, puuidStatusCode} = await getPUUID(req.params.gameName, req.params.tagLine);
+  const {summoner, summonerStatusCode} = await getSummoner(req.params.regionID, puuidJSON.puuid);
   res.json(summoner);
 });
 
 // Sends list of 20 MatchIDs based that varies based on start param
 app.get('/matchID/:playerPUUID/:start', async (req, res) => {
-  const matchIDCall = await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${req.params.playerPUUID}/ids?start=${req.params.start}&count=20&api_key=${process.env.KEY}`);
+  const matchIDCall = await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${req.params.playerPUUID}/ids?start=${req.params.start}&count=3&api_key=${process.env.KEY}`);
 
   const matchIDJSON = await matchIDCall.json();
   res.json(matchIDJSON);
