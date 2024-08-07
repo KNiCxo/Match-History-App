@@ -1,0 +1,63 @@
+/* Styling for win rate component */
+.win-rate-div {
+  background-color: #626d78;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 90%;
+  height: 100px;
+  margin: 20px auto 0;
+  border-radius: 8px;
+  font-family: spiegel;
+}
+
+/* Styling for overall win rate div box */
+.overall-div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Font size for win rate label and win/loss */
+.win-rate-label, .score {
+  font-size: 15px;
+}
+
+/* Styling for win rate percentage */
+.win-rate {
+  font-size: 35px;
+}
+
+/* Styling for recently played champions div box */
+.recent-champ-div {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+/* Styling for recently played champions icon */
+.recent-champ-icon {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid rgb(255, 249, 68);
+  border-radius: 30px;
+}
+
+/* Styling for recently played champion win rate and win/loss stats */
+.recent-champ-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Font size for recently played champion win rate percentage */
+.champ-win-rate {
+  font-size: 20px;
+}
+
+/* Font size for recently played champion win/loss */
+.champ-win-loss {
+  font-size: 12px;
+}

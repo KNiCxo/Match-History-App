@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   },
   {
     // Profile page
-    path: '/profile/:regionID/:gameName/:tagLine',
+    path: '/profile/:routingID/:gameName/:tagLine',
     element: <ProfilePage></ProfilePage>
   },
   {

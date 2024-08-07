@@ -1,3 +1,12 @@
+/* Creates space above and centers elements in profile header */
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  text-align: center;
+  justify-content: center;
+}
+
 /* Removes space between profile img and profile name */
 .img-div {
   margin-bottom: -15px;
@@ -33,7 +42,7 @@
 /* Styling for profile name div box */
 .profile-name {
   margin: 0 auto;
-  background-color: rgba(87, 87, 87, 0.422);
+  background-color: rgba(87, 87, 87, 0.722);
   width: fit-content;
   height: 40px;
   border-radius: 10px;

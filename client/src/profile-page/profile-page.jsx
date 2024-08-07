@@ -17,8 +17,8 @@ import ProfileWinRate from './profile-winrate.jsx';
 
 // Displays match history of player that was searched by the user
 function ProfilePage() {
-  // Get regionID, gameName, and tagLine from URL params
-  let {regionID, gameName, tagLine} = useParams();
+  // Get routingID, gameName, and tagLine from URL params
+  let {routingID, gameName, tagLine} = useParams();
 
   // Player PUUID
   const [playerPUUID, setPlayerPUUID] = useState(null);
@@ -35,14 +35,8 @@ function ProfilePage() {
   // Fetches and handles user summoner data
   const handleSummoner = async () => {
     // Make call to get Summoner info
-    const summonerCall = await fetch(`http://localhost:4000/summoner/${regionID}/${gameName}/${tagLine}`);
+    const summonerCall = await fetch(`http://localhost:4000/summoner/${routingID}/${gameName}/${tagLine}`);
     const summonerJSON = await summonerCall.json();
-
-    // If Summoner PUUID doesn't match playerPUUID state, a new user was searched
-    // Therefore, clear matchDataList array
-    if (playerPUUID != summonerJSON.puuid) {
-      setMatchDataList([]);
-    }
 
     // Set variables needed for profile header
     setPlayerPUUID(summonerJSON.puuid);
@@ -53,7 +47,7 @@ function ProfilePage() {
   // Fetches and handles Match IDs
   const fetchMatchIDs = async () => {
     // Make call to get Match IDs
-    const matchIDCall = await fetch(`http://localhost:4000/matchID/${playerPUUID}/${start}`);
+    const matchIDCall = await fetch(`http://localhost:4000/matchID/${routingID}/${playerPUUID}/${start}`);
     const matchIDJSON = await matchIDCall.json();
 
     // Store Match IDs
@@ -63,15 +57,17 @@ function ProfilePage() {
   // Gathers data needed from Match IDs to display win rate and match history components
   const handleMatchIDs = async () => {
     // Temp array to store data gathered from matchIDs
-    const matchDataTempList = matchDataList;
+    const matchDataTempList = [];
 
     // Loop through all Match IDs
     for (let i = 0; i < matchIDList.length; i++) {
       // Make call to get match data
-      const matchCall = await fetch(`http://localhost:4000/match/${matchIDList[i]}`);
+      const matchCall = await fetch(`http://localhost:4000/match/${routingID}/${matchIDList[i]}`);
       const matchCallJSON = await matchCall.json();
 
-      // Filters out 16-player Arena gamemode
+      // If gamemode is Arena, get some data
+      // Else if gamemode is Swarm, ignore
+      // Else, get necessary data
       if (matchCallJSON.info.queueId == 1700) {
         // Create object for match that contains all necessary data
         // Gather game mode, game creation, and game duration data initially
@@ -79,19 +75,23 @@ function ProfilePage() {
           gameMode: gameModes[`${matchCallJSON.info.queueId}`],
           gameCreation: matchCallJSON.info.gameCreation,
           gameDuration: matchCallJSON.info.gameDuration,
-          victory: matchCallJSON.info.participants[i].win
         }
 
         // Loop through match participants until player is found
-        for (let i = 0; i < matchCallJSON.info.participants.length; i++) {
-          if (matchCallJSON.info.participants[i].puuid == playerPUUID) {
+        for (let j = 0; j < matchCallJSON.info.participants.length; j++) {
+          if (matchCallJSON.info.participants[j].puuid == playerPUUID) {
             // Gather game outcome from player data
-            matchDataObj = {...matchDataObj, victory: matchCallJSON.info.participants[i].win};
+            matchDataObj = {...matchDataObj, victory: matchCallJSON.info.participants[j].win};
           }
         }
 
         // Push match data object into temp array
         matchDataTempList.push(matchDataObj);
+      } else if (matchCallJSON.info.queueId == 1810 || 
+                 matchCallJSON.info.queueId == 1820 || 
+                 matchCallJSON.info.queueId == 1830 ||
+                 matchCallJSON.info.queueId == 1840) {
+        //pass
       } else {
         // Tracks which team the player is on (Blue: 100, Red: 200)
         let playerTeamID;
@@ -109,11 +109,11 @@ function ProfilePage() {
         };
 
         // Loop through match participants until player is found
-        for (let i = 0; i < matchCallJSON.info.participants.length; i++) {
-          if (matchCallJSON.info.participants[i].puuid == playerPUUID) {
+        for (let j = 0; j < matchCallJSON.info.participants.length; j++) {
+          if (matchCallJSON.info.participants[j].puuid == playerPUUID) {
             // If individualPosition is "Invalid", set up team arrays for ARAM
             // Else, set up arrays for team roles
-            if (matchCallJSON.info.participants[i].individualPosition == "Invalid") {
+            if (matchCallJSON.info.participants[j].individualPosition == "Invalid") {
               playerTeam = [];
               enemyTeam = [];
             } else {
@@ -122,56 +122,63 @@ function ProfilePage() {
             }
             
             // Player's team ID is needed to store participants' data into the correct team arrays
-            playerTeamID = matchCallJSON.info.participants[i].teamId
+            playerTeamID = matchCallJSON.info.participants[j].teamId
 
             if (playerTeamID == 100) {
-              matchDataObj = {...matchDataObj, teamColor: "Blue"};
-              matchDataObj = {...matchDataObj, enemyColor: "Red"};
+              matchDataObj = {...matchDataObj, teamColor: 'Blue'};
+              matchDataObj = {...matchDataObj, enemyColor: 'Red'};
             } else {
-              matchDataObj = {...matchDataObj, teamColor: "Red"};
-              matchDataObj = {...matchDataObj, enemyColor: "Blue"};
+              matchDataObj = {...matchDataObj, teamColor: 'Red'};
+              matchDataObj = {...matchDataObj, enemyColor: 'Blue'};
             }
 
             // Gather game outcome from player data
-            matchDataObj = {...matchDataObj, victory: matchCallJSON.info.participants[i].win};
+            if (matchCallJSON.info.gameDuration <= 600) {
+              matchDataObj = {...matchDataObj, victory: 'Remake'};
+            } else {
+              matchDataObj = {
+                ...matchDataObj, victory: matchCallJSON.info.participants[j].win === true ? 'Victory' : 'Defeat'
+              };
+            }
           }
         }
 
         // Loop through match participants to gather necessary data
-        for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < matchCallJSON.info.participants.length; j++) {
           const participantObj = {
-            champLevel: matchCallJSON.info.participants[i].champLevel,
-            champion: matchCallJSON.info.participants[i].championName,
-            summoner1: matchCallJSON.info.participants[i].summoner1Id,
-            summoner2: matchCallJSON.info.participants[i].summoner2Id,
-            keystone: matchCallJSON.info.participants[i].perks.styles[0].selections[0].perk,
-            secondaryRunes: matchCallJSON.info.participants[i].perks.styles[1].style,
-            gameName: matchCallJSON.info.participants[i].riotIdGameName,
-            tagLine: matchCallJSON.info.participants[i].riotIdTagline,
-            level: matchCallJSON.info.participants[i].summonerLevel,
-            kills: matchCallJSON.info.participants[i].kills,
-            deaths: matchCallJSON.info.participants[i].deaths,
-            assists: matchCallJSON.info.participants[i].assists,
-            dmgDealtChamp: matchCallJSON.info.participants[i].totalDamageDealtToChampions,
-            cs: matchCallJSON.info.participants[i].totalMinionsKilled,
-            controlWards: matchCallJSON.info.participants[i].visionWardsBoughtInGame,
-            wardsPlaced: matchCallJSON.info.participants[i].wardsPlaced,
-            wardsKilled: matchCallJSON.info.participants[i].wardsKilled,
-            item0: matchCallJSON.info.participants[i].item0,
-            item1: matchCallJSON.info.participants[i].item1,
-            item2: matchCallJSON.info.participants[i].item2,
-            item3: matchCallJSON.info.participants[i].item3,
-            item4: matchCallJSON.info.participants[i].item4,
-            item5: matchCallJSON.info.participants[i].item5,
-            item6: matchCallJSON.info.participants[i].item6,
+            puuid: matchCallJSON.info.participants[j].puuid,
+            champLevel: matchCallJSON.info.participants[j].champLevel,
+            champion: matchCallJSON.info.participants[j].championName,
+            summoner1: matchCallJSON.info.participants[j].summoner1Id,
+            summoner2: matchCallJSON.info.participants[j].summoner2Id,
+            keystone: matchCallJSON.info.participants[j].perks.styles[0].selections[0].perk,
+            secondaryRunes: matchCallJSON.info.participants[j].perks.styles[1].style,
+            gameName: matchCallJSON.info.participants[j].riotIdGameName,
+            tagLine: matchCallJSON.info.participants[j].riotIdTagline,
+            level: matchCallJSON.info.participants[j].summonerLevel,
+            kills: matchCallJSON.info.participants[j].kills,
+            deaths: matchCallJSON.info.participants[j].deaths,
+            assists: matchCallJSON.info.participants[j].assists,
+            dmgDealtChamp: matchCallJSON.info.participants[j].totalDamageDealtToChampions,
+            cs: matchCallJSON.info.participants[j].totalMinionsKilled,
+            controlWards: matchCallJSON.info.participants[j].visionWardsBoughtInGame,
+            wardsPlaced: matchCallJSON.info.participants[j].wardsPlaced,
+            wardsKilled: matchCallJSON.info.participants[j].wardsKilled,
+            item0: matchCallJSON.info.participants[j].item0,
+            item1: matchCallJSON.info.participants[j].item1,
+            item2: matchCallJSON.info.participants[j].item2,
+            item3: matchCallJSON.info.participants[j].item3,
+            item4: matchCallJSON.info.participants[j].item4,
+            item5: matchCallJSON.info.participants[j].item5,
+            item6: matchCallJSON.info.participants[j].item6,
           }
 
           // If individual positions are "Invalid", order in FCFS
           // Else, order based on player role
-          if (matchCallJSON.info.participants[i].individualPosition == "Invalid") {
+          if (matchCallJSON.info.participants[j].individualPosition == "Invalid") {
             // If participant teamId matches player teamId, then add to player array
             // Else, store in enemy team array
-            if (matchCallJSON.info.participants[i].teamId == playerTeamID) {
+            if (matchCallJSON.info.participants[j].teamId == playerTeamID) {
               playerTeam.push(participantObj);
             } else {
               enemyTeam.push(participantObj);
@@ -181,7 +188,7 @@ function ProfilePage() {
             let index;
 
             // Set index position based on participant role
-            switch (matchCallJSON.info.participants[i].individualPosition) {
+            switch (matchCallJSON.info.participants[j].individualPosition) {
               case "TOP":
                 index = 0;
                 break;
@@ -201,7 +208,7 @@ function ProfilePage() {
             
             // If participant teamId matches player teamId, then add to player array
             // Else, store in enemy team array
-            if (matchCallJSON.info.participants[i].teamId == playerTeamID) {
+            if (matchCallJSON.info.participants[j].teamId == playerTeamID) {
               playerTeam[index] = participantObj;
             } else {
               enemyTeam[index] = participantObj;
@@ -220,7 +227,6 @@ function ProfilePage() {
     // Update state of match data array with temp array
     setMatchDataList(matchDataTempList);
     console.log(matchDataTempList);
-    //console.log(matchDataTempList[2].enemyTeamData[3]);
   }
 
   // If iconNum was set, display Profile Header
@@ -232,13 +238,20 @@ function ProfilePage() {
 
   // Displays the player's win rate data
   function displayProfileWinRate() {
-
+    if (matchDataList.length > 0) {
+      return(
+        <ProfileWinRate 
+          matchDataList={matchDataList}
+          playerPUUID={playerPUUID}>
+        </ProfileWinRate>
+      );
+    }
   }
 
   // Fetches summoner data when params are retrieved from URL
   useEffect(() => {
     handleSummoner();
-  }, [regionID, gameName, tagLine]);
+  }, [routingID, gameName, tagLine]);
 
   // Fetches match history data when playerPUUID is set
   useEffect(() => {
@@ -262,14 +275,10 @@ function ProfilePage() {
       </div>
 
       {/* Profile Header component */}
-      <div className='profile-header-div'>
-        {displayProfileHeader()}
-      </div>
+      {displayProfileHeader()}
 
       {/* Profile Win Rate component*/}
-      <div className='profile-winrate-div'>
-        {displayProfileWinRate()}
-      </div>
+      {displayProfileWinRate()}
     </>
   );
 }

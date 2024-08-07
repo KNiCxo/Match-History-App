@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   background-color: rgb(7, 109, 198);
-  border-top-left-radius: 12px;
+  border-top-left-radius: 9px;
   width: 80px;
   height: 50px;
   line-height: 16px;
@@ -34,7 +34,7 @@
   display: flex;
   flex-direction: column;
   padding-top: 7px;
-  padding-left: 10px;
+  padding-left: 9px;
 }
 
 .region-label {
@@ -62,8 +62,8 @@
   width: 80px;
   height: 137px;
   border-top: 2px solid rgb(7, 104, 189);
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
   background-color: rgb(7, 109, 198);
   list-style-type: none;
   color: white;
@@ -83,7 +83,7 @@
 .user-input {
   background-color: rgb(255, 255, 255);
   border: none;
-  border-top-right-radius: 12px;
+  border-top-right-radius: 9px;
   outline: none;
   width: 219px;
   height: 48px;
@@ -94,10 +94,10 @@
 
 /* Styling for seach-button */
 .search-button {
-  background-color: rgb(229, 18, 18);
+  background-color: rgb(47, 47, 47);
   border: none;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
   outline: none;
   width: 316px;
   height: 30px;
@@ -108,5 +108,5 @@
 
 .search-button:hover {
   cursor: pointer;
-  background-color: red;
+  background-color: rgb(66, 66, 66);
 }

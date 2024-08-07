@@ -4,15 +4,15 @@ import {useNavigate} from 'react-router-dom';
 import './search-bar.css';
 
 function SearchBar() {
-  // Get region, regionID, and regionTag from local storage
+  // Get region, routingID, and regionTag from local storage
   let getRegion = JSON.parse(localStorage.getItem('region'));
   if (!getRegion) {
     getRegion = 'NA';
   }
 
-  let getRegionID = JSON.parse(localStorage.getItem('regionID'));
-  if (!getRegionID) {
-    getRegionID = 'na1';
+  let getRoutingID = JSON.parse(localStorage.getItem('routingID'));
+  if (!getRoutingID) {
+    getRoutingID = 'na1';
   }
 
   let getRegionTag = JSON.parse(localStorage.getItem('regionTag'));
@@ -23,8 +23,8 @@ function SearchBar() {
   // Stores region to use for searching
   const [region, setRegion] = useState(getRegion);
 
-  // Stores regionID for profile page query param
-  const [regionID, setRegionID] = useState(getRegionID);
+  // Stores routingID for profile page query param
+  const [routingID, setRoutingID] = useState(getRoutingID);
 
   // Stores region tag for search bar placeholder
   const [regionTag, setRegionTag] = useState(getRegionTag);
@@ -47,13 +47,13 @@ function SearchBar() {
       }
   }
 
-  // When called, sets the region, regionID, and regionTag based on what the user picked
-  function changeRegion(regionChange, regionIDChange, regionTagChange) {
+  // When called, sets the region, routingID, and regionTag based on what the user picked
+  function changeRegion(regionChange, routingIDChange, regionTagChange) {
     setRegion(regionChange);
     localStorage.setItem('region', JSON.stringify(regionChange));
 
-    setRegionID(regionIDChange);
-    localStorage.setItem('regionID', JSON.stringify(regionIDChange));
+    setRoutingID(routingIDChange);
+    localStorage.setItem('routingID', JSON.stringify(routingIDChange));
 
     setRegionTag(regionTagChange);
     localStorage.setItem('regionTag', JSON.stringify(regionTagChange));
@@ -88,18 +88,18 @@ function SearchBar() {
 
       // Parse username and set gameName and tagLine 
       let {gameName, tagLine} = parseUsername(username);
- 
+      
       // Make call to proxyServer and get status code to check if profile exists
       const checkUsername = await 
-      fetch(encodeURI(`http://localhost:4000/check/${regionID}/${gameName}/${encodeURIComponent(tagLine)}`));
+      fetch(encodeURI(`http://localhost:4000/check/${routingID}/${gameName}/${encodeURIComponent(tagLine)}`));
       const statusCode = checkUsername.status;
-      const nameJSON = await checkUsername.json();
 
       // If request was a success, navigate to profile page with proper params
       // Else navigate to error page
       if (statusCode == 200) {
+        const nameJSON = await checkUsername.json();
         document.querySelector('.user-input').value = '';
-        navigate(encodeURI(`/profile/${regionID}/${nameJSON.gameName}/${encodeURIComponent(nameJSON.tagLine)}`));
+        navigate(encodeURI(`/profile/${routingID}/${nameJSON.gameName}/${encodeURIComponent(nameJSON.tagLine)}`));
       } else {
         navigate('/error');
       }
@@ -150,6 +150,7 @@ function SearchBar() {
                 <li onClick={() => changeRegion('TW', 'tw2', '#TW2')}>TW</li>
                 <li onClick={() => changeRegion('VN', 'vn2', '#VN2')}>VN</li>
                 <li onClick={() => changeRegion('TH', 'th2', '#TH2')}>TH</li>
+                <li onClick={() => changeRegion('ME', 'me1', '#me1')}>ME</li>
               </ul>
             </div>
           </div>
