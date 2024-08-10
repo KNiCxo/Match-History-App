@@ -1,0 +1,159 @@
+/* Styling for match history container */
+.match-list-container {
+  margin-top: 13px;
+}
+
+/* Styling for single match div */
+.match-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 90%;
+  height: 90px;
+  margin: 0 auto 6px;
+  border-radius: 8px;
+  background-color: rgb(61, 62, 63);
+  color: white;
+  font-family: spiegel;
+  font-size: 10px;
+}
+
+/* Styling for overall match info */
+.match-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styles invididual elements within match-info container */
+.match-info-data {
+  margin-bottom: 5px;
+}
+
+/* Game mode, outcome, and duration font size */
+.match-game-mode, .match-outcome, .match-duration {
+  font-size: 15px;
+}
+
+/* Styles top half of player info */
+.player-champ-top-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* Styling for player's champion icon div box */
+.player-champ-icon-div {
+  display: flex;
+  align-items: center;
+}
+
+/* Styling for player's champion icon */
+.player-champ-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 30px;
+}
+
+/* Styling for the player's champion level div box */
+.player-champ-level-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 30px;
+  background-color: rgba(59, 57, 57, 0.855);
+  position: relative;
+  top: 20px;
+  right: 20px;
+}
+
+/* Font size for player's champion level */
+.player-champ-level {
+  font-size: 13px;
+}
+
+/* Styling for player summoner spell div box */
+.player-summ-div {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  right: 16px;
+}
+
+/* Styling for player summoner spell icons */
+.player-summ {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+}
+
+/* Create space between player summoner spells */
+.player-summ:first-child {
+  margin-bottom: 2px;
+}
+
+/* Styling for player rune div box */
+.player-rune-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  border-radius: 30px;
+  position: relative;
+  right: 12px;
+}
+
+/* Create space between player runes */
+.player-rune-div:first-child {
+  margin-bottom: 2px;
+}
+
+/* Styling for player rune icon */
+.player-rune {
+  width: 20px;
+  height: 20px;
+}
+
+/* Styling for item slot div */
+.player-champ-bottom-div {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+}
+
+/* Styling for empty item slot */
+.item-slot {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin-right: 2px;
+}
+
+/* Styling for item slot icons */
+.item-slot-img {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+/* Styling for player KDA and CS div box */
+.player-kda-cs-div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* Styling for player KDA */
+.player-kda {
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+/* Styling for player CS */
+.player-cs {
+  margin-top: 5px;
+  font-size: 14px;
+}

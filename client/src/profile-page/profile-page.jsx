@@ -5,15 +5,12 @@ import './profile-page.css';
 
 // Import JSON data
 import gameModes from '../lib/game-modes.json';
-import runes from '../lib/runes.json';
-import summonerSpells from '../lib/summoner-spells.json';
-import items from '../lib/item.json';
-import champions from '../lib/champion.json';
 
 // Import search bar and match history components
 import SearchBar from '../search-bar.jsx';
 import ProfileHeader from './profile-header.jsx';
 import ProfileWinRate from './profile-winrate.jsx';
+import ProfileMatches from './profile-matches.jsx';
 
 // Displays match history of player that was searched by the user
 function ProfilePage() {
@@ -73,7 +70,7 @@ function ProfilePage() {
         // Gather game mode, game creation, and game duration data initially
         let matchDataObj = {
           gameMode: gameModes[`${matchCallJSON.info.queueId}`],
-          gameCreation: matchCallJSON.info.gameCreation,
+          gameCompleted: matchCallJSON.info.gameEndTimestamp,
           gameDuration: matchCallJSON.info.gameDuration,
         }
 
@@ -81,7 +78,7 @@ function ProfilePage() {
         for (let j = 0; j < matchCallJSON.info.participants.length; j++) {
           if (matchCallJSON.info.participants[j].puuid == playerPUUID) {
             // Gather game outcome from player data
-            matchDataObj = {...matchDataObj, victory: matchCallJSON.info.participants[j].win};
+            matchDataObj = {...matchDataObj, outcome: matchCallJSON.info.participants[j].win === true ? 'Victory' : 'Defeat'};
           }
         }
 
@@ -104,7 +101,7 @@ function ProfilePage() {
         // Gather game mode, game creation, and game duration data initially
         let matchDataObj = {
           gameMode: gameModes[`${matchCallJSON.info.queueId}`],
-          gameCreation: matchCallJSON.info.gameCreation,
+          gameCompleted: matchCallJSON.info.gameEndTimestamp,
           gameDuration: matchCallJSON.info.gameDuration,
         };
 
@@ -134,10 +131,10 @@ function ProfilePage() {
 
             // Gather game outcome from player data
             if (matchCallJSON.info.gameDuration <= 600) {
-              matchDataObj = {...matchDataObj, victory: 'Remake'};
+              matchDataObj = {...matchDataObj, outcome: 'Remake'};
             } else {
               matchDataObj = {
-                ...matchDataObj, victory: matchCallJSON.info.participants[j].win === true ? 'Victory' : 'Defeat'
+                ...matchDataObj, outcome: matchCallJSON.info.participants[j].win === true ? 'Victory' : 'Defeat'
               };
             }
           }
@@ -160,7 +157,8 @@ function ProfilePage() {
             deaths: matchCallJSON.info.participants[j].deaths,
             assists: matchCallJSON.info.participants[j].assists,
             dmgDealtChamp: matchCallJSON.info.participants[j].totalDamageDealtToChampions,
-            cs: matchCallJSON.info.participants[j].totalMinionsKilled,
+            cs: matchCallJSON.info.participants[j].totalMinionsKilled + 
+                matchCallJSON.info.participants[j].neutralMinionsKilled,
             controlWards: matchCallJSON.info.participants[j].visionWardsBoughtInGame,
             wardsPlaced: matchCallJSON.info.participants[j].wardsPlaced,
             wardsKilled: matchCallJSON.info.participants[j].wardsKilled,
@@ -231,8 +229,14 @@ function ProfilePage() {
 
   // If iconNum was set, display Profile Header
   function displayProfileHeader() {
-    if (iconNum) {
-      return(<ProfileHeader iconNum={iconNum} summonerLevel={summonerLevel} gameName={gameName} tagLine={tagLine}></ProfileHeader>)
+    if (matchDataList.length > 0) {
+      return(
+      <ProfileHeader 
+        iconNum={iconNum} 
+        summonerLevel={summonerLevel} 
+        gameName={gameName} 
+        tagLine={tagLine}>
+      </ProfileHeader>)
     }
   }
 
@@ -244,6 +248,19 @@ function ProfilePage() {
           matchDataList={matchDataList}
           playerPUUID={playerPUUID}>
         </ProfileWinRate>
+      );
+    }
+  }
+
+  // Displays the player's match history
+  function displayProfileMatches() {
+    if (matchDataList.length > 0) {
+      return(
+        <ProfileMatches
+          matchDataList={matchDataList}
+          playerPUUID={playerPUUID}
+          routingID={routingID}>
+        </ProfileMatches>
       );
     }
   }
@@ -277,8 +294,11 @@ function ProfilePage() {
       {/* Profile Header component */}
       {displayProfileHeader()}
 
-      {/* Profile Win Rate component*/}
+      {/* Profile Win Rate component */}
       {displayProfileWinRate()}
+
+      {/* Profile Matches component */}
+      {displayProfileMatches()}
     </>
   );
 }

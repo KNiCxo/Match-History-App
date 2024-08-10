@@ -29,12 +29,12 @@ function ProfileWinRate(props) {
     for (let i = 0; i < props.matchDataList.length; i++) {
       // If game outcome was a remake, then ignore
       // Else continue
-      if (props.matchDataList[i].victory === 'Remake') {
+      if (props.matchDataList[i].outcome === 'Remake') {
         // pass
       } else {
         // If game outcome was a win, increment win counter
         // Else, increment loss counter
-        if (props.matchDataList[i].victory === 'Victory') {
+        if (props.matchDataList[i].outcome === 'Victory') {
           tempWins++;
         } else {
           tempLosses++;
@@ -50,7 +50,7 @@ function ProfileWinRate(props) {
             // Else, adjust its existing stats
             if (!(props.matchDataList[i].playerTeamData[j].champion in tempChampWinRates)) {
               // Insert different key values depending on game outcome
-              if (props.matchDataList[i].victory === 'Victory') {
+              if (props.matchDataList[i].outcome === 'Victory') {
                 tempChampWinRates[props.matchDataList[i].playerTeamData[j].champion] = {
                   wins: 1,
                   losses: 0,
@@ -65,7 +65,7 @@ function ProfileWinRate(props) {
               }
             } else {
               // Increment wins or losses depending on game outcome
-              if (props.matchDataList[i].victory === 'Victory') {
+              if (props.matchDataList[i].outcome === 'Victory') {
                 tempChampWinRates[props.matchDataList[i].playerTeamData[j].champion].wins++;
               } else {
                 tempChampWinRates[props.matchDataList[i].playerTeamData[j].champion].losses++;
