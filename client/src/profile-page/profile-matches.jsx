@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 
 import './profile-matches.css';
 
@@ -8,8 +9,6 @@ import summonerSpells from '../lib/summoner-spells.json';
 
 // Displays the player's match history
 function ProfileMatches(props) {
-  const [hoverIndex, setHoverIndex] = useState(null);
-
   // Convert epoch number into custom date string
   function convertEpoch(epoch) {
     let date = new Date(epoch);
@@ -226,7 +225,11 @@ function ProfileMatches(props) {
                                           src={`/assets/runes/${runes[player.secondaryRunes].imgurl}`} alt="" />
                                   </div>
 
-                                  <span className='table-game-name'>{player.gameName}</span>
+                                  <Link className='table-player-link'
+                                        to={`/profile/${props.routingID}/${player.gameName}/${player.tagLine}`}
+                                        target='_blank'>
+                                    <span className='table-game-name'>{player.gameName}</span>
+                                  </Link>
                                 </td>
 
                                 {/* Player KDA */}
@@ -328,7 +331,11 @@ function ProfileMatches(props) {
                                           src={`/assets/runes/${runes[player.secondaryRunes].imgurl}`} alt="" />
                                   </div>
 
-                                  <span className='table-game-name'>{player.gameName}</span>
+                                  <Link className='table-player-link'
+                                        to={`/profile/${props.routingID}/${player.gameName}/${player.tagLine}`}
+                                        target='_blank'>
+                                    <span className='table-game-name'>{player.gameName}</span>
+                                  </Link>
                                 </td>
                                 <td className='table-kda'>
                                   <span>{`${player.kills}/${player.deaths}/${player.assists}`}</span>
