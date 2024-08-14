@@ -29,7 +29,7 @@ function ProfileWinRate(props) {
     for (let i = 0; i < props.matchDataList.length; i++) {
       // If game outcome was a remake, then ignore
       // Else continue
-      if (props.matchDataList[i].outcome === 'Remake') {
+      if (props.matchDataList[i].outcome === 'Remake' || props.matchDataList[i].gameMode === 'Arena') {
         // pass
       } else {
         // If game outcome was a win, increment win counter
@@ -127,36 +127,36 @@ function ProfileWinRate(props) {
 
           {/* Display top 3 most played champions and their win rates */}
           <div className='recent-champ-div'>
-            <div className='recent-champ'>
+            <div className='recent-champ-icon-div'>
               <img className='recent-champ-icon' src={`/assets/champion/${champWinRates[0].champion}.png`} alt="" />
+            </div>
 
-              <div className='recent-champ-stat'>
-                <span className='champ-win-rate'>{Math.floor(champWinRates[0].winRate  * 100)}%</span>
-                <span className='champ-win-loss'>({champWinRates[0].wins}W - {champWinRates[0].losses}L)</span>
-              </div>
+            <div className='recent-champ-stat'>
+              <span className='champ-win-rate'>{Math.floor(champWinRates[0].winRate  * 100)}%</span>
+              <span className='champ-win-loss'>({champWinRates[0].wins}W - {champWinRates[0].losses}L)</span>
             </div>
           </div>
 
           {/* Only display if there is more than one champion in the object */}
           {champWinRates[1] && <div className='recent-champ-div'>
-            <div className='recent-champ'>
+            <div className='recent-champ-icon-div'>
               <img className='recent-champ-icon' src={`/assets/champion/${champWinRates[1].champion}.png`} alt="" />
+            </div>
 
-              <div className='recent-champ-stat'>
-                <span className='champ-win-rate'>{Math.floor(champWinRates[1].winRate  * 100)}%</span>
-                <span className='champ-win-loss'>({champWinRates[1].wins}W - {champWinRates[1].losses}L)</span>
-              </div>
+            <div className='recent-champ-stat'>
+              <span className='champ-win-rate'>{Math.floor(champWinRates[1].winRate  * 100)}%</span>
+              <span className='champ-win-loss'>({champWinRates[1].wins}W - {champWinRates[1].losses}L)</span>
             </div>
           </div>}
 
           {champWinRates[2] && <div className='recent-champ-div'>
-            <div className='recent-champ'>
+            <div className='recent-champ-icon-div'>
               <img className='recent-champ-icon' src={`/assets/champion/${champWinRates[2].champion}.png`} alt="" />
+            </div>
 
-              <div className='recent-champ-stat'>
-                <span className='champ-win-rate'>{Math.floor(champWinRates[2].winRate  * 100)}%</span>
-                <span className='champ-win-loss'>({champWinRates[2].wins}W - {champWinRates[2].losses}L)</span>
-              </div>
+            <div className='recent-champ-stat'>
+              <span className='champ-win-rate'>{Math.floor(champWinRates[2].winRate  * 100)}%</span>
+              <span className='champ-win-loss'>({champWinRates[2].wins}W - {champWinRates[2].losses}L)</span>
             </div>
           </div>}
         </>

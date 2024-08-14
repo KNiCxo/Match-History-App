@@ -34,16 +34,24 @@
 /* Styling for recently played champions div box */
 .recent-champ-div {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   text-align: center;
+}
+
+.recent-champ-icon-div {
+  border: 1.5px solid rgb(255, 249, 68);
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+  overflow: hidden;
 }
 
 /* Styling for recently played champions icon */
 .recent-champ-icon {
-  width: 40px;
-  height: 40px;
-  border: 1.5px solid rgb(255, 249, 68);
+  width: 46px;
+  height: 46px;
   border-radius: 30px;
+  object-position: -4px -2px;
 }
 
 /* Styling for recently played champion win rate and win/loss stats */

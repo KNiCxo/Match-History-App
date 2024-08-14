@@ -1,10 +1,12 @@
 /* Styling for match history container */
 .match-list-container {
+  display: flex;
+  flex-direction: column;
   margin-top: 13px;
 }
 
 /* Styling for single match div */
-.match-container {
+.match-container-top {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -12,10 +14,39 @@
   height: 90px;
   margin: 0 auto 6px;
   border-radius: 8px;
-  background-color: rgb(61, 62, 63);
   color: white;
   font-family: spiegel;
   font-size: 10px;
+}
+
+/* Change cursor when hovering over match */
+.match-container-top:hover {
+  cursor: pointer;
+}
+
+/* Different stylings for the match containers based on the game outcome */
+.match-victory {
+  background-color: rgb(13, 94, 193);
+}
+
+.match-victory:hover {
+  background-color: rgb(11, 78, 159);
+}
+
+.match-remake {
+  background-color: rgb(61, 62, 63);
+}
+
+.match-remake:hover {
+  background-color: rgb(52, 53, 54);
+}
+
+.match-defeat {
+  background-color: rgb(188, 7, 7);
+}
+
+.match-defeat:hover {
+  background-color: rgb(143, 6, 6);
 }
 
 /* Styling for overall match info */
@@ -45,13 +76,17 @@
 .player-champ-icon-div {
   display: flex;
   align-items: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 30px;
+  overflow: hidden;
 }
 
 /* Styling for player's champion icon */
 .player-champ-icon {
-  width: 55px;
-  height: 55px;
-  border-radius: 30px;
+  width: 65px;
+  height: 65px;
+  object-position: -4px;
 }
 
 /* Styling for the player's champion level div box */
@@ -156,4 +191,179 @@
 .player-cs {
   margin-top: 5px;
   font-size: 14px;
+}
+
+/* Styling for the bottom half of the match container */
+.match-container-bottom {
+  display: none;
+  width: 90%;
+  height: 200px;
+  margin: 0px auto 10px;
+  border-radius: 8px;
+  color: white;
+  font-family: spiegel;
+}
+
+/* Different stylings for the match tables based on the game outcome */
+.table-victory {
+  background-color: rgb(13, 94, 193);
+}
+
+.table-remake {
+  background-color: rgb(61, 62, 63);
+}
+
+.table-defeat {
+  background-color: rgb(188, 7, 7);
+}
+
+/* Styling for the match table container */
+.match-table-div {
+  overflow: auto;
+  white-space: nowrap;
+  text-align: center;
+  border-radius: 8px;
+}
+
+/* Removes spacing between table columns */
+.match-table {
+  border-spacing: 0;
+}
+
+/* Creates space between the table headers */
+.match-table thead tr th {
+  padding: 8px 30px;
+}
+
+/* Different styling for odd rows for easier table readability */
+.table-victory tbody tr:nth-child(odd) {
+  background-color: rgb(11, 78, 159);
+}
+
+.table-remake tbody tr:nth-child(odd) {
+  background-color: rgb(52, 53, 54);
+}
+
+.table-defeat tbody tr:nth-child(odd) {
+  background-color: rgb(143, 6, 6);
+}
+
+.match-player-table tbody tr:last-child {
+  background-color: rgba(85, 82, 82, 0.692);
+  height: 5px;
+}
+
+/* Create vertical space between table rows */
+.match-table tbody tr td {
+  margin-top: 5px;
+}
+
+/* Styling for first column of tables */
+.table-player {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: -5px;
+}
+
+/* Styling for table champion icon containers */
+.table-champ-icon-div {
+  width: 35px;
+  height: 35px;
+  margin-right: 3px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+/* Styling for table champion icons */
+.table-champ-icon {
+  width: 39px;
+  height: 39px;
+  object-position: -2px -2px;
+}
+
+/* Styling for table champion level containers */
+.table-champ-level-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 30px;
+  background-color: rgba(59, 57, 57, 0.855);
+  position: relative;
+  top: 15px;
+  left: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Font size for player's champion level */
+.table-champ-level {
+  font-size: 9px;
+}
+
+/* Styling for table summoner spell icon containers */
+.table-summs-div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styling for table summoner spell icons */
+.table-summ-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+/* Creates space between summoner spell icons */
+.table-summ-icon:first-child {
+  margin-bottom: 2px;
+}
+
+/* Styling for table rune containers */
+.table-runes-div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styling for table rune icons */
+.table-runes {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+/* Creates space between rune icons */
+.table-runes:first-child {
+  margin-bottom: 2px;
+}
+
+/* Styling for game names */
+.table-game-name {
+  width: 110px;
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+/* Styling for table items columns */
+.table-items {
+  display: flex;
+  flex-direction: row;
+  padding-right: 10px;
+  position: relative;
+  top: -10px;
+}
+
+/* Styling for empty item slots and item icons */
+.table-item-empty, .table-item-img {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin-right: 2px;
+}
+
+/* Additional styling for empty item slots */
+.table-item-empty {
+  background-color: rgba(255, 255, 255, 0.348);
 }
