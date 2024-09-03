@@ -42,11 +42,11 @@
 }
 
 .match-defeat {
-  background-color: rgb(188, 7, 7);
+  background-color: rgb(170, 6, 6);
 }
 
 .match-defeat:hover {
-  background-color: rgb(143, 6, 6);
+  background-color: rgb(118, 6, 6);
 }
 
 /* Styling for overall match info */
@@ -209,7 +209,7 @@
 }
 
 .team-defeat {
-  background-color: rgb(155, 17, 17);
+  background-color: rgb(136, 8, 8);
 }
 
 .player-team-row, .enemy-team-row {
@@ -254,7 +254,7 @@
 }
 
 .table-defeat {
-  background-color: rgb(188, 7, 7);
+  background-color: rgb(170, 6, 6);
 }
 
 /* Styling for the match table container */

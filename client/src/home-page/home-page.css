@@ -31,3 +31,28 @@
   margin: 10px 0 30px;
   font-size: 17px;
 }
+
+@media only screen and (min-width: 800px) {
+  .header-div img {
+    width: 125px;
+    height: 125px;
+    margin: 205px 0 10px;
+  }
+
+  /* Styling for h1 tag */
+  .title {
+    font-size: 60px;
+  }
+
+  /* Styling for h2 tag */
+  .description {
+    margin: 10px 0;
+    font-size: 25px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .header-div img {
+    margin: 125px 0 10px;
+  }
+}

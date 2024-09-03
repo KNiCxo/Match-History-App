@@ -78,7 +78,7 @@ function ProfilePage() {
       const matchCallJSON = await matchCall.json();
 
       // If gamemode is Arena, get some data
-      // Else if gamemode is Swarm, ignore
+      // Else if gamemode is Swarm or before patch 14.10, ignore
       // Else, get necessary data
       if (matchCallJSON.info.queueId == 1700) {
         // Create object for match that contains all necessary data
@@ -102,7 +102,8 @@ function ProfilePage() {
       } else if (matchCallJSON.info.queueId == 1810 || 
                  matchCallJSON.info.queueId == 1820 || 
                  matchCallJSON.info.queueId == 1830 ||
-                 matchCallJSON.info.queueId == 1840) {
+                 matchCallJSON.info.queueId == 1840 ||
+                 matchCallJSON.info.gameCreation < (1716620400 * 1000)) {
         //pass
       } else {
         // Tracks which team the player is on (Blue: 100, Red: 200)

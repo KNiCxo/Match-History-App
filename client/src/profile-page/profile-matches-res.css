@@ -59,7 +59,17 @@
   /* Styling for single match div */
   .match-container-top {
     width: 45%;
-    height: 105px;
-    font-size: 14px;
+  }
+
+  /* Styling for the bottom half of the match container */
+  .match-container-bottom {
+    width: 45%;
+    height: 545px;
+  }
+
+  /* Styling for empty item slots and item icons */
+  .table-item-empty, .table-item-img {
+    width: 25.5px;
+    height: 25.5px;
   }
 }

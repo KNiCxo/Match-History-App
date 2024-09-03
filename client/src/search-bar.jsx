@@ -92,7 +92,11 @@ function SearchBar() {
 
       // Clear input and navigate to profile
       document.querySelector('.user-input').value = '';
-      navigate(encodeURI(`/profile/${routingID}/${gameName}/${encodeURIComponent(tagLine)}`));
+      if (gameName == '') {
+        navigate('/error');
+      } else {
+        navigate(encodeURI(`/profile/${routingID}/${gameName}/${encodeURIComponent(tagLine)}`));
+      }
     }
   };
 
