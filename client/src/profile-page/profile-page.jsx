@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import './profile-page.css';
 
@@ -29,16 +30,30 @@ function ProfilePage() {
   const [matchIDList, setMatchIDList] = useState(null);
   const [matchDataList, setMatchDataList] = useState([]);
 
+  // Enable navigate hook
+  const navigate = useNavigate();
+
   // Fetches and handles user summoner data
   const handleSummoner = async () => {
-    // Make call to get Summoner info
-    const summonerCall = await fetch(`http://localhost:4000/summoner/${routingID}/${gameName}/${tagLine}`);
-    const summonerJSON = await summonerCall.json();
+    // Make call to proxyServer and get status code to check if profile exists
+    const checkUsername = await 
+    fetch(encodeURI(`http://localhost:4000/check/${routingID}/${gameName}/${encodeURIComponent(tagLine)}`));
+    const statusCode = checkUsername.status;
 
-    // Set variables needed for profile header
-    setPlayerPUUID(summonerJSON.puuid);
-    setIconNum(summonerJSON.profileIconId);
-    setLevel(summonerJSON.summonerLevel);
+    // If request was a success, navigate to profile page with proper params
+    // Else navigate to error page
+    if (statusCode == 200) {
+      // Make call to get Summoner info
+      const summonerCall = await fetch(`http://localhost:4000/summoner/${routingID}/${gameName}/${tagLine}`);
+      const summonerJSON = await summonerCall.json();
+
+      // Set variables needed for profile header
+      setPlayerPUUID(summonerJSON.puuid);
+      setIconNum(summonerJSON.profileIconId);
+      setLevel(summonerJSON.summonerLevel);
+    } else {
+      navigate('/error');
+    }
   };
 
   // Fetches and handles Match IDs
@@ -252,7 +267,7 @@ function ProfilePage() {
     }
   }
 
-  // Displays the player's match history
+  // Displays the player's matches
   function displayProfileMatches() {
     if (matchDataList.length > 0) {
       return(

@@ -40,7 +40,7 @@ const getPUUID = async (routingID, gameName, tagLine) => {
   // Store status code and JSON responses
   const puuidJSON = await puuidResponse.json();
   const puuidStatusCode = puuidResponse.status;
-
+  
   // If status code is 200, return the given PUUID and status code
   // Else, only return status code
   if (puuidStatusCode == 200) {

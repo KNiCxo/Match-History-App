@@ -27,4 +27,19 @@
 .error-cta {
   margin: 0 auto 35px;
   font-size: 17px;
-} 
+}
+
+@media only screen and (min-width: 800px) {
+  .error-img {
+    margin-top: 300px;
+    margin-bottom: 15px;
+    width: 125px;
+    height: 125px;
+  }
+
+    /* Styling for h1 tag */
+  .error-title {
+    margin: 0px auto;
+    font-size: 40px;
+  }
+}

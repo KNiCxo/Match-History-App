@@ -38,6 +38,7 @@
   text-align: center;
 }
 
+/* Styling for recently played champ icon div box */
 .recent-champ-icon-div {
   border: 1.5px solid rgb(255, 249, 68);
   width: 40px;
@@ -68,4 +69,48 @@
 /* Font size for recently played champion win/loss */
 .champ-win-loss {
   font-size: 12px;
+}
+
+@media only screen and (min-width: 800px) {
+  /* Styling for win rate component */
+  .win-rate-div {
+    width: 75%;
+    height: 115px;
+  }
+
+  /* Font size for win rate label and win/loss */
+  .win-rate-label, .score {
+    font-size: 20px;
+  }
+
+  /* Styling for win rate percentage */
+  .win-rate {
+    font-size: 40px;
+  }
+
+  /* Styling for recently played champ icon div box */
+  .recent-champ-icon-div {
+    border: 3px solid rgb(255, 249, 68);
+    width: 44px;
+    height: 44px;
+    border-radius: 50px;
+    margin-bottom: 5px;
+  }
+
+  /* Styling for recently played champions icon */
+  .recent-champ-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    object-position: -3px -3px;
+  }
+}
+
+/* Responsive styling */
+@media only screen and (min-width: 1200px) {
+  /* Styling for win rate component */
+  .win-rate-div {
+    width: 45%;
+    height: 115px;
+  }
 }

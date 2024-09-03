@@ -1,0 +1,47 @@
+@media only screen and (min-width: 800px) {
+  /* Styling for region select menu */
+  .select-region {
+    width: 100px;
+    height: 55px;
+  }
+
+  /* Styling for region select menu texts */
+  .region-text {
+    padding-top: 10px;
+    padding-left: 12px;
+  }
+
+  .region-label {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .region-name {
+    font-size: 24px;
+  }
+
+  /* Styling for drop down menu list */
+  .region-options ul {
+    margin-top: 5px;
+    width: 100px;
+  }
+
+  /* Styling for drop down menu list items */
+  .region-options ul li {
+    font-size: 24px;
+  }
+
+  /* Styling for search bar input field */
+  .user-input {
+    width: 380px;
+    height: 53px;
+    font-size: 18px;
+  }
+
+  /* Styling for seach-button */
+  .search-button {
+    width: 497px;
+    height: 35px;
+    font-size: 22px;
+  }
+}

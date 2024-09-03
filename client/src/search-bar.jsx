@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import './search-bar.css';
+import './search-bar-res.css';
 
 function SearchBar() {
   // Get region, routingID, and regionTag from local storage
@@ -88,21 +89,10 @@ function SearchBar() {
 
       // Parse username and set gameName and tagLine 
       let {gameName, tagLine} = parseUsername(username);
-      
-      // Make call to proxyServer and get status code to check if profile exists
-      const checkUsername = await 
-      fetch(encodeURI(`http://localhost:4000/check/${routingID}/${gameName}/${encodeURIComponent(tagLine)}`));
-      const statusCode = checkUsername.status;
 
-      // If request was a success, navigate to profile page with proper params
-      // Else navigate to error page
-      if (statusCode == 200) {
-        const nameJSON = await checkUsername.json();
-        document.querySelector('.user-input').value = '';
-        navigate(encodeURI(`/profile/${routingID}/${nameJSON.gameName}/${encodeURIComponent(nameJSON.tagLine)}`));
-      } else {
-        navigate('/error');
-      }
+      // Clear input and navigate to profile
+      document.querySelector('.user-input').value = '';
+      navigate(encodeURI(`/profile/${routingID}/${gameName}/${encodeURIComponent(tagLine)}`));
     }
   };
 

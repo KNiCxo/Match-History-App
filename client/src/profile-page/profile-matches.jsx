@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import './profile-matches.css';
+import './profile-matches-res.css';
 
 // Import JSON data
 import runes from '../lib/runes.json';
@@ -173,6 +174,42 @@ function ProfileMatches(props) {
                         {displayPlayerItemIcon(index, 'item4')}
                         {displayPlayerItemIcon(index, 'item5')}
                         {displayPlayerItemIcon(index, 'item6')}
+                      </div>
+                    </div>
+
+                    <div className={`teams-list-div team-${className}`}>
+                      <div className='player-team-list'>
+                        {props.matchDataList[index].playerTeamData.map((player, pos) => {
+                          return(
+                            <>
+                              <div className='player-team-row'>
+                                <img src={`/assets/champion/${player.champion}.png`} alt="" />
+                                <Link className='table-player-link'
+                                      to={`/profile/${props.routingID}/${player.gameName}/${player.tagLine}`}
+                                      target='_blank'>
+                                  <span>{player.gameName}</span>
+                                </Link>
+                              </div>
+                            </>
+                          );
+                        })}
+                      </div>
+
+                      <div className='enemy-team-list'>
+                        {props.matchDataList[index].enemyTeamData.map((player, pos) => {
+                          return(
+                            <>
+                              <div className='player-team-row'>
+                                <img src={`/assets/champion/${player.champion}.png`} alt="" />
+                                <Link className='table-player-link'
+                                      to={`/profile/${props.routingID}/${player.gameName}/${player.tagLine}`}
+                                      target='_blank'>
+                                  <span>{player.gameName}</span>
+                                </Link>
+                              </div>
+                            </>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>

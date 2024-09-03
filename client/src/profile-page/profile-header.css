@@ -2,7 +2,7 @@
 .profile-header {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin: 20px 0 30px;
   text-align: center;
   justify-content: center;
 }
@@ -62,4 +62,23 @@
 
 .profile-tag-line {
   color: rgb(43, 43, 43);
+}
+
+/* Responsive styling */
+@media only screen and (min-width: 800px) {
+  /* Styling for profile img */
+  .profile-img {
+    width: 125px;
+    height: 125px;
+  }
+
+  /* Styling for profile name div box */
+  .profile-name {
+    height: 50px;
+  }
+
+  /* Styling for game name and tag line */
+  .profile-game-name, .profile-tag-line {
+    font-size: 40px;
+  }
 }

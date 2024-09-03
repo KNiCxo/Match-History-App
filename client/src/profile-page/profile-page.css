@@ -3,3 +3,11 @@
   margin-top: 20px;
   margin-bottom: 30px;
 }
+
+/* Responsive styling */
+@media only screen and (min-width: 800px) {
+  .search-bar-div {
+    margin-top: 35px;
+    margin-bottom: 30px;
+  }
+}

@@ -1,0 +1,65 @@
+@media only screen and (min-width: 800px) {
+  /* Styling for single match div */
+  .match-container-top {
+    width: 75%;
+    height: 105px;
+    font-size: 14px;
+  }
+
+  /* Game mode, outcome, and duration font size */
+  .match-game-mode, .match-outcome, .match-duration {
+    font-size: 17px;
+  }
+
+  .teams-list-div {
+    display: flex;
+  }
+
+  /* Styling for the bottom half of the match container */
+  .match-container-bottom {
+    width: 75%;
+    height: 275px;
+  }
+
+  /* Styling for first column of tables */
+  .table-player {
+    margin-left: 0px;
+  }
+
+  /* Styling for table champion level containers */
+  .table-champ-level-div {
+    top: 15px;
+    left: 12px;
+  }
+
+  /* Styling for table summoner spell icon containers */
+  .table-summs-div {
+    margin-right: 3px;
+  }
+
+  /* Styling for table summoner spell icons */
+  .table-summ-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Creates space between summoner spell icons */
+  .table-summ-icon:first-child {
+    margin-bottom: 4px;
+  }
+
+  /* Styling for table rune icons */
+  .table-runes {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  /* Styling for single match div */
+  .match-container-top {
+    width: 45%;
+    height: 105px;
+    font-size: 14px;
+  }
+}

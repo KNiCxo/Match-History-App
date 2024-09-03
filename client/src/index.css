@@ -16,7 +16,7 @@ body {
   padding: 0.01;
   height: 92vh;
   background-image: url('/public/background.webp');
-  background-size: 570%;
+  background-size: 585%;
   background-position-x: -200px;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -30,4 +30,19 @@ h1 {
 
 h2 {
   color: rgb(108, 104, 104);
+}
+
+/* Responsive styling */
+@media only screen and (min-width: 800px) {
+  body {
+    background-size: 355%;
+    background-position-x: -350px;
+  }
+}
+
+@media only screen and (min-height: 1200px) {
+  body {
+    background-size: 425%;
+    background-position-x: -475px;
+  }
 }
