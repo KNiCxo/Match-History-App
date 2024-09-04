@@ -40,6 +40,13 @@ h2 {
   }
 }
 
+@media only screen and (min-width: 1200px) {
+  body {
+    background-size: 150%;
+    background-position-x: -350px;
+  }
+}
+
 @media only screen and (min-height: 1200px) {
   body {
     background-size: 425%;

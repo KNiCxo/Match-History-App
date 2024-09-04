@@ -202,7 +202,7 @@ function ProfilePage() {
             let index;
 
             // Set index position based on participant role
-            switch (matchCallJSON.info.participants[j].individualPosition) {
+            switch (matchCallJSON.info.participants[j].teamPosition) {
               case "TOP":
                 index = 0;
                 break;

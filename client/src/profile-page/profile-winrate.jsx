@@ -20,6 +20,7 @@ function ProfileWinRate(props) {
 
   // Calculates the win rate for games played as well as the win rates for all champions played
   function calculateWinRate() {
+    console.log(props.matchDataList);
     // Create temp variables for wins, losses, and champion winrate object
     let tempWins = 0;
     let tempLosses = 0;
@@ -45,6 +46,7 @@ function ProfileWinRate(props) {
         // Loop through the player's team array
         for (let j = 0; j < props.matchDataList[i].playerTeamData.length; j++) {
           // Look for the PUUID that matches the player's PUUID and insert champion win/loss stats into obj
+          //console.log(props.matchDataList[i].playerTeamData[j]);
           if (props.playerPUUID == props.matchDataList[i].playerTeamData[j].puuid) {
             // If champion does not exist yet in champWinRates object, then create a key for it
             // Else, adjust its existing stats
