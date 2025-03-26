@@ -23,7 +23,6 @@ function SearchBar() {
 
   // Stores region to use for searching
   const [region, setRegion] = useState(getRegion);
-
   // Stores routingID for profile page query param
   const [routingID, setRoutingID] = useState(getRoutingID);
 
@@ -89,7 +88,7 @@ function SearchBar() {
 
       // Parse username and set gameName and tagLine 
       let {gameName, tagLine} = parseUsername(username);
-
+      
       // Clear input and navigate to profile
       document.querySelector('.user-input').value = '';
       if (gameName == '') {

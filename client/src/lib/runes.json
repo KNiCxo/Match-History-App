@@ -39,6 +39,10 @@
     "name": "Press the Attack",
     "imgurl": "PressTheAttack.png"
   },
+  "8008": {
+    "name": "Lethal Tempo",
+    "imgurl": "LethalTempo.png"
+  },
   "8021": {
     "name": "Fleet Footwork",
     "imgurl": "FleetFootwork.png"
